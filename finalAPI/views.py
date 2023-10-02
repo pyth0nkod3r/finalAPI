@@ -1,10 +1,36 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+#from .models import CategoryModel, OrderItemModel
+from .models import MenuItemModel, CartModel, OrderModel
+from . import serializers
 
-# Create your views here.
-from .models import UserModel
-from rest_framework import generics
-from .serializers import UserSerializer
 
-class ManagerView(generics.ListCreateAPIView):
-    queryset = UserModel.objects.all()
-    serializer_class = UserSerializer 
+
+class MenuItemView(viewsets.ModelViewSet):
+    queryset = MenuItemModel.objects.all()
+    serializer_class = serializers.MenuItemSerializer
+    
+    def save(self, serializer):
+       serializer.save()
+       
+
+'''
+class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
+    queryset = MenuItemModel.objects.all()
+    serializer_class = serializers.MenuItemSerializer
+
+
+class CartView(ListCreateAPIView):
+    queryset = CartModel.objects.all()
+    serializer_class = serializers.CartSerializer
+
+
+class OrderView(ListCreateAPIView):
+    queryset = OrderModel.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+
+class OrderItemView(RetrieveUpdateAPIView):
+    queryset = OrderItemModel.objects.all()
+    serializer_class = serializers.OrderItemSerializer
+
+'''
