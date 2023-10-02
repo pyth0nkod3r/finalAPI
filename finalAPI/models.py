@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class UserModel(User):
+    REQUIRED_FIELDS = ['username', 'email']
+    USERNAME_FIELD = ['email']
 
 class CategoryModel(models.Model):
     slug = models.SlugField(unique=True)

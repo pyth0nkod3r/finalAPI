@@ -1,8 +1,7 @@
 from rest_framework import viewsets
 #from .models import CategoryModel, OrderItemModel
-from .models import MenuItemModel, CartModel, OrderModel
+from .models import MenuItemModel, CartModel, OrderModel, UserModel
 from . import serializers
-
 
 
 class MenuItemView(viewsets.ModelViewSet):

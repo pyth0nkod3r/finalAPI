@@ -8,9 +8,12 @@ router.register('menu-items', MenuItemView, basename='menu-item')
 urlpatterns = router.urls
 
 
-# Menu Items Management
+# User Management
 urlpatterns = [
     path('', include(router.urls)),
+    path('users', include('djoser.urls')),
+    path('users/me/', include('djoser.urls')),
+    path('token/login/', include('djoser.urls')),
 ]
 
 '''
