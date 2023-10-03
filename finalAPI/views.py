@@ -5,8 +5,9 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from . import serializers
-from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAdminUser
 from rest_framework.generics import *
+from django.contrib.auth.models import User, Group
 
 
 class SecretView(APIView):
@@ -48,3 +49,10 @@ class OrderItemView(RetrieveUpdateAPIView):
     serializer_class = serializers.OrderItemSerializer
 
 '''
+
+class ManagerView(ListCreateAPIView):
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAdminUser]
+
+    def managers(self, request):
+        username = request.data['username']

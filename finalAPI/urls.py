@@ -1,5 +1,5 @@
 from .views import *
-from django.urls import path, include
+from django.urls import path, re_path, include
 from rest_framework.routers import DefaultRouter
 
 '''
@@ -15,8 +15,8 @@ urlpatterns = [
     path('secret', SecretView.as_view()),
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
-    path('menu-items', MenuItemView.as_view()),
-    path('menu-items/<int:pk>', SingleMenuItemView.as_view(),)
+    re_path('menu-items/?$', MenuItemView.as_view()),
+    re_path('menu-items/<int:pk>/?$', SingleMenuItemView.as_view(),)
 ]
 
 #urlpatterns += router.urls

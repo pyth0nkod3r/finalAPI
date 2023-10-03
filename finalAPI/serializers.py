@@ -9,10 +9,11 @@ class CategorySerializer(serializers.ModelSerializer):
         lookup_field = 'slug'
     
 class MenuItemSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
-    category = CategorySerializer()
+    category = CategorySerializer(read_only=True)
+    #category_id = serializers.IntegerField(write_only=True)
     class Meta:
         model = MenuItemModel
-        fields = ['id', 'title', 'featured', 'price', 'category']
+        fields = ['id', 'title', 'featured', 'price', 'category',]
     
 class CartSerializer(serializers.ModelSerializer):
     menu_item = MenuItemSerializer()
