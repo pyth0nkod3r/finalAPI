@@ -1,6 +1,6 @@
 from .views import *
 from django.urls import path, re_path, include
-from rest_framework.routers import DefaultRouter
+#from rest_framework.routers import DefaultRouter
 
 '''
 router = DefaultRouter(trailing_slash=False)
@@ -15,7 +15,7 @@ urlpatterns = [
     re_path('secret', SecretView.as_view()),
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
-    re_path('groups/manager/users/?$', ManagerView.as_view())
+    re_path('groups/manager/users/?$', ManagerView.as_view()),
     re_path('menu-items/?$', MenuItemView.as_view()),
     re_path('menu-items/<int:pk>/?$', SingleMenuItemView.as_view(),)
 ]
