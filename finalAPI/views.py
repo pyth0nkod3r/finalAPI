@@ -59,8 +59,13 @@ class ManagerView(ListCreateAPIView):
         if username:
             user = get_object_or_404(User, username=username)
             managers = Group.objects.get(name='Manager')
-            managers.user_set.add(user)
-            context = {'status': 'added'}
-            return Response(context)
+            if request.method == 'POST':
+                managers.user_set.add(user)
+                context = {'status': 'added'}
+                return Response(context)
+            elif request.method == 'DELETE':
+                managers.user_set.remove(user)
+                context = {'status': 'removed'}
+                return Response(context)
         context = {"status": "error"}
         return Response(context, status.HTTP_400_BAD_REQUEST)
