@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UserModel(User):
     REQUIRED_FIELDS = ['username', 'email']
-    USERNAME_FIELD = ['email']
+    USERNAME_FIELD = ['username']
 
 class CategoryModel(models.Model):
     slug = models.SlugField(unique=True)
