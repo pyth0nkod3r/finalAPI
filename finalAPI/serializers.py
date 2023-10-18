@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import CategoryModel, CartModel, OrderModel, OrderItemModel, MenuItemModel
+from .models import *
+from drf_writable_nested import WritableNestedModelSerializer
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,11 +8,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'slug']
         lookup_field = 'slug'
     
-class MenuItemSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+class MenuItemSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    #category_id = serializers.IntegerField(write_only=True)
     class Meta:
         model = MenuItemModel
-        fields = ['id', 'title', 'featured', 'price', 'category']
+        fields = ['id', 'title', 'featured', 'price', 'category',]
     
 class CartSerializer(serializers.ModelSerializer):
     menu_item = MenuItemSerializer()

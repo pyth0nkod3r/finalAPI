@@ -7,6 +7,10 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 djoser = "*"
+<<<<<<< HEAD
+=======
+pytzdata = "*"
+>>>>>>> refs/remotes/origin/main
 djangorestframework-simplejwt = "*"
 
 [dev-packages]

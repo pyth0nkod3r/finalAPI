@@ -1,29 +1,24 @@
-from .views import MenuItemView #, OrderView
-#from .views import OrderItemView, SingleMenuItemView, CartView
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from .views import *
+from django.urls import path, re_path, include
+#from rest_framework.routers import DefaultRouter
 
+'''
 router = DefaultRouter(trailing_slash=False)
-router.register('menu-items', MenuItemView, basename='menu-item')
-urlpatterns = router.urls
-
-
-# Menu Items Management
-urlpatterns = [
-    path('', include(router.urls)),
-]
+router.register('menu-items', MenuItemView, basename='menu-item'),
+#router.register('menu-items/<int:pk>', SingleMenuItemView, basename='single-item'),
 
 '''
-# Order Management 
+
+
+# User Management
 urlpatterns = [
-    path('orders', OrderView.as_view()),
-    path('orders/{orderId}', OrderItemView.as_view()),
+    re_path('secret', SecretView.as_view()),
+    path('', include('djoser.urls')),
+    path('', include('djoser.urls.authtoken')),
+    re_path('groups/manager/users/?$', ManagerView.as_view()),
+    re_path('menu-items/?$', MenuItemView.as_view()),
+    re_path('menu-items/<int:pk>/?$', SingleMenuItemView.as_view(),)
 ]
 
-# Cart Management
-urlpatterns = [
-    path('cart/menu-items', CartView.as_view()),
-]
-
-'''
+#urlpatterns += router.urls
 
