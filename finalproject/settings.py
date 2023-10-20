@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'debug_toolbar',
     #'rest_framework_simplejwt', 
     #'rest_framework_simplejwt.token_blacklist', 
 ]
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'finalproject.urls'
@@ -129,6 +131,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#APPEND_SLASH=False
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -152,3 +156,7 @@ DJOSER = {
 #SIMPLE_JWT = {
 #    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30)
 #}
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

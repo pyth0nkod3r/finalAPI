@@ -4,14 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-djangorestframework = "*"
-djoser = "*"
-<<<<<<< HEAD
-=======
-pytzdata = "*"
->>>>>>> refs/remotes/origin/main
-djangorestframework-simplejwt = "*"
+drf-writable-nested = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

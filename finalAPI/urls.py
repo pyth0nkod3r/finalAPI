@@ -17,7 +17,7 @@ urlpatterns = [
     path('', include('djoser.urls.authtoken')),
     re_path('groups/manager/users/?$', ManagerView.as_view()),
     re_path('menu-items/?$', MenuItemView.as_view()),
-    re_path('menu-items/<int:pk>/?$', SingleMenuItemView.as_view(),)
+    path('menu-items/<int:pk>', SingleMenuItemView.as_view(),)
 ]
 
 #urlpatterns += router.urls

@@ -1,37 +1,37 @@
 from rest_framework import status
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import *
-from . import serializers
+from .serializers import *
 from rest_framework.permissions import IsAdminUser
 from rest_framework.generics import *
 from django.contrib.auth.models import User, Group
+from .custom_permissions.permissions import IsManager
 
-
-class SecretView(APIView):
+class SecretView(views.APIView):
     authentication_classes = [TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticated]
-    
+    permission_classes = [IsManager]
+
     def get(self, request):
         return Response('Secret message', status=status.HTTP_200_OK)
 
+
 class MenuItemView(ListCreateAPIView):
     authentication_classes = [TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsManager]
     queryset = MenuItemModel.objects.all()
-    serializer_class = serializers.MenuItemSerializer
-    
-    def save(self, serializer):
-       serializer.save()
-       
+    serializer_class = MenuItemSerializer
+
+    def save(self, request, serializer):
+        return serializer.save
 
 
 class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     queryset = MenuItemModel.objects.all()
-    serializer_class = serializers.MenuItemSerializer
-    
+    serializer_class = MenuItemSerializer
+
+
 '''
 
 class CartView(ListCreateAPIView):
@@ -50,9 +50,12 @@ class OrderItemView(RetrieveUpdateAPIView):
 
 '''
 
+
 class ManagerView(ListCreateAPIView):
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAdminUser]
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
     def managers(self, request):
         username = request.data['username']
@@ -63,6 +66,8 @@ class ManagerView(ListCreateAPIView):
                 managers.user_set.add(user)
                 context = {'status': 'added'}
                 return Response(context)
+            elif request.method == 'GET':
+                return managers
             elif request.method == 'DELETE':
                 managers.user_set.remove(user)
                 context = {'status': 'removed'}

@@ -20,16 +20,11 @@ class MenuItemModel(models.Model):
     featured = models.BooleanField(db_index=True)
     price = models.DecimalField(decimal_places=2, db_index=True, max_digits=7)
     category = models.ForeignKey(
-<<<<<<< HEAD
-        CategoryModel, on_delete=models.PROTECT
-    )
-=======
         CategoryModel, on_delete=models.PROTECT, default=1
     )
     
     def __str__(self) -> str:
         return self.title
->>>>>>> refs/remotes/origin/main
 
 
 class CartModel(models.Model):
